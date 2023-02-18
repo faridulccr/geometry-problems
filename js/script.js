@@ -35,7 +35,7 @@ const getInputValueByID = (idName) => {
 
 // set area result in result container
 const resultContainer = document.getElementById("result-container");
-// to add and remove list item 
+// to add and remove list item
 let listItems = [];
 const setAreaResult = (areaName, result) => {
     const list = `<li class="text-xl my-2">
