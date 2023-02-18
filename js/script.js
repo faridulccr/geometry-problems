@@ -115,8 +115,11 @@ cardsContainer.addEventListener("click", (event) => {
 
 // add event listener to result container to delete result
 resultContainer.addEventListener("click", (event) => {
-    const listItem = event.target.parentNode;
-    resultContainer.removeChild(listItem);
-    const indexPosition = listItems.indexOf(listItem);
-    listItems.splice(indexPosition, 1);
+    const btn = event.target;
+    if (btn.classList[0] === "close-btn") {
+        const listItem = event.target.parentNode;
+        resultContainer.removeChild(listItem);
+        const indexPosition = listItems.indexOf(listItem);
+        listItems.splice(indexPosition, 1);
+    }
 });
