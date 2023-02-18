@@ -1,13 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>question</title>
-</head>
-<body>
-    <h1>Hello World</h1>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Tailwind CSS cdn link -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>question</title>
+    </head>
+    <body>
+        <section class="p-4 mb-8 md:w-3/4 lg:w-1/2 md:mx-auto bg-zinc-400">
+            <div class="mb-10">
+                <h2 class="text-2xl font-semibold mb-3">
+                    1. What is DOM and what is the purpose of DOM?
+                </h2>
+                <p class="px-4">
+                    <strong>DOM:</strong> The DOM is a W3C (World Wide Web
+                    Consortium) standard. <br />
+                    The W3C Document Object Model (DOM) is a platform and
+                    language-neutral interface that allows programs and scripts
+                    to dynamically access and update the content, structure and
+                    style of a document. <br />
+                    <br />
+                    The W3C DOM standard is separated into 3 different parts:
+                    <br />
+                    (i) Core DOM - standard model for all document types. <br />
+                    (ii) XML DOM - standard model for XML documents. <br />
+                    (iii) HTML DOM - standard model for HTML documents.
+                </p>
+                <br />
+                <p class="px-4">
+                    <strong>Purpose of DOM:</strong> Its purpose is to provide a
+                    structured representation of an HTML or XML document so that
+                    programs or scripts can change the document structure,
+                    style, content and manipulate or interact with the page.
+                </p>
+            </div>
+            <div class="mb-10">
+                <h2 class="text-2xl font-semibold mb-3">
+                    2. How will you select HTML elements using DOM?
+                </h2>
+                <p class="px-4">
+                    There are 6 ways to select elements in a DOM using
+                    selectors: <br />
+                    i. getElementById() <br />
+                    ii. getElementsByClassName()<br />
+                    iii. getElementsByTagName() <br />
+                    iv. querySelector()<br />
+                    v. querySelectorAll()<br />
+                    vi. getElementsByName() - only that elements which has a
+                    name attribute.
+                </p>
+            </div>
+            <div class="mb-10">
+                <h2 class="text-2xl font-semibold mb-3">
+                    3. What is event bubble?
+                </h2>
+                <p class="px-4">
+                    Event bubble is concept in the DOM. <br />
+                    It happens when an element receives an event and that event
+                    bubbles up (or propagates up) to its parent and ancestor
+                    elements in the DOM tree until it gets to the root
+                    element.<br />
+                    This is the default behavior of events on elements unless to
+                    stop the propagation.
+                </p>
+            </div>
+            <div>
+                <h2 class="text-2xl font-semibold mb-3">
+                    4. What is the callback function and why will you use it?
+                </h2>
+                <p class="px-4">
+                    A callback function is a function that is passed into
+                    another function as an argument which is then invoked inside
+                    the outer function to complete some kind of routine or
+                    action.
+                </p>
+                <br />
+                <p class="px-4">
+                    <strong>Why:</strong> We need callback function because many
+                    Javascript actions are asynchronous which means they don't
+                    really stop the program (or a function) from running until
+                    they're completed. <br />
+                    If I want to do asynchronous work synchronously then I need
+                    to use callback function. <br />
+                    Or when we want to do database related asynchronous work
+                    then we need to use callback function.
+                </p>
+            </div>
+        </section>
+    </body>
 </html>
