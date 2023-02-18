@@ -17,11 +17,11 @@ for (let card of geometryCards) {
 }
 
 // add event listener to all geometry card to lister mouse leave event
-for (let card of geometryCards) {
-    card.addEventListener("mouseleave", () => {
-        card.style.backgroundColor = "#ffffff";
-    });
-}
+// for (let card of geometryCards) {
+//     card.addEventListener("mouseleave", () => {
+//         card.style.backgroundColor = "#ffffff";
+//     });
+// }
 
 // area calculation related task
 const getInputValueByID = (idName) => {
