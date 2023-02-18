@@ -43,7 +43,10 @@ const setAreaResult = (areaName, result) => {
                         >
                         <span>${result}</span>
                         <span>cm<sup>2</sup></span>
-                        <span class="close-btn px-2 text-white bg-red-600 rounded-full inline-block ml-1 cursor-pointer">X</span>
+                        <button class="convert-btn bg-blue-600 px-3 py-1 rounded mx-2 text-white mt-1" name="convert-meter">
+                            convert to m<sup>2</sup>
+                        </button>
+                        <button class="close-btn px-2 text-white bg-red-600 rounded-full ml-1">X</button>
                     </li>`;
     listItems.push(list);
     let html = "";
@@ -116,10 +119,36 @@ cardsContainer.addEventListener("click", (event) => {
 // add event listener to result container to delete result
 resultContainer.addEventListener("click", (event) => {
     const btn = event.target;
+    const indexPositionOfList = listItems.indexOf(btn.parentNode);
+
+    // remove item from listItems when close btn click
     if (btn.classList[0] === "close-btn") {
-        const listItem = event.target.parentNode;
-        resultContainer.removeChild(listItem);
-        const indexPosition = listItems.indexOf(listItem);
-        listItems.splice(indexPosition, 1);
+        resultContainer.removeChild(btn.parentNode);
+        listItems.splice(indexPositionOfList, 1);
+    }
+    // convert units when convert btn click
+    if (btn.classList[0] === "convert-btn") {
+        const cm = btn.previousElementSibling;
+        const result = cm.previousElementSibling;
+        if (btn.name === "convert-meter") {
+            result.textContent = `${convert_cm_to_m(result.textContent)}`;
+            cm.innerHTML = `m<sup>2</sup>`;
+            btn.innerHTML = `convert to cm<sup>2</sup>`;
+            btn.name = "convert-cm";
+        } else {
+            result.textContent = `${convert_m_to_cm(result.textContent)}`;
+            cm.innerHTML = `cm<sup>2</sup>`;
+            btn.innerHTML = `convert to m<sup>2</sup>`;
+            btn.name = "convert-meter";
+        }
     }
 });
+
+// to cm square to m square
+function convert_cm_to_m(cm) {
+    return parseFloat(cm) / 10000;
+}
+// to m square to cm square
+function convert_m_to_cm(m) {
+    return (parseFloat(m) * 10000).toFixed(1);
+}
