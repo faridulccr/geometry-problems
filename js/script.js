@@ -43,7 +43,7 @@ const setAreaResult = (areaName, result) => {
                         >
                         <span>${result}</span>
                         <span>cm<sup>2</sup></span>
-                        <span class="close-btn px-2 text-white bg-red-600 rounded-full inline-block ml-1">X</span>
+                        <span class="close-btn px-2 text-white bg-red-600 rounded-full inline-block ml-1 cursor-pointer">X</span>
                     </li>`;
     listItems.push(list);
     let html = "";
