@@ -27,36 +27,10 @@ for (let card of geometryCards) {
 const getInputValueByID = (idName) => {
     const element = document.getElementById(idName);
     const number = parseFloat(element.value);
-
     if (isNaN(number) || number <= 0) {
         return false;
     }
     return number;
-};
-
-// to calculate area of geometry area
-const areaOfGeometry = (a, b, areaName) => {
-    // to calculate area for Triangle, Rhombus and Pentagon (A = 0.5 * b * h)
-    if (
-        areaName === "triangle" ||
-        areaName === "rhombus" ||
-        areaName === "pentagon"
-    ) {
-        const result = (a * b) / 2;
-        return result.toFixed(1);
-    }
-
-    //to calculate area for Rectangle and Parallelogram and Square (A = b * h)
-    if (areaName === "rectangle" || areaName === "parallelogram") {
-        const result = a * b;
-        return result.toFixed(1);
-    }
-
-    //to calculate area for Ellipse (A = πab)
-    if (areaName === "ellipse") {
-        const result = Math.PI * a * b;
-        return result.toFixed(1);
-    }
 };
 
 // set area result in result container
@@ -74,59 +48,62 @@ const setAreaResult = (function () {
     };
 })();
 
-// html collection of all area buttons
-const areaButtons = document.getElementsByClassName("area-btn");
-// add event listener to all area buttons
-for (let button of areaButtons) {
-    button.addEventListener("click", (event) => {
-        const btnIdName = event.target.id;
-        if (btnIdName === "triangle-btn") {
-            const base = getInputValueByID("triangle-base");
-            const height = getInputValueByID("triangle-height");
-            if (base && height) {
-                const result = areaOfGeometry(base, height, "triangle");
-                setAreaResult("Triangle", result);
-            } else alert("Please enter a valid positive number!");
+// to calculate area of geometry area
+const areaOfGeometry = (a, b, areaName) => {
+    if (a && b) {
+        // to calculate area for Triangle, Rhombus and Pentagon (A = 0.5 * b * h)
+        if (
+            areaName === "Triangle" ||
+            areaName === "Rhombus" ||
+            areaName === "Pentagon"
+        ) {
+            const result = ((a * b) / 2).toFixed(1);
+            setAreaResult(areaName, result);
         }
-        if (btnIdName === "rectangle-btn") {
-            const width = getInputValueByID("rectangle-width");
-            const length = getInputValueByID("rectangle-length");
-            if (width && length) {
-                const result = areaOfGeometry(width, length, "rectangle");
-                setAreaResult("Rectangle", result);
-            } else alert("Please enter a valid positive number!");
+        //to calculate area for Rectangle and Parallelogram and Square (A = b * h)
+        if (areaName === "Rectangle" || areaName === "Parallelogram") {
+            const result = (a * b).toFixed(1);
+            setAreaResult(areaName, result);
         }
-        if (btnIdName === "parallelogram-btn") {
-            const base = getInputValueByID("parallelogram-base");
-            const height = getInputValueByID("parallelogram-height");
-            if (base && height) {
-                const result = areaOfGeometry(base, height, "parallelogram");
-                setAreaResult("Parallelogram", result);
-            } else alert("Please enter a valid positive number!");
+        //to calculate area for Ellipse (A = πab)
+        if (areaName === "Ellipse") {
+            const result = (Math.PI * a * b).toFixed(1);
+            setAreaResult(areaName, result);
         }
-        if (btnIdName === "rhombus-btn") {
-            const d1 = getInputValueByID("rhombus-d1");
-            const d2 = getInputValueByID("rhombus-d2");
-            if (d1 && d2) {
-                const result = areaOfGeometry(d1, d2, "rhombus");
-                setAreaResult("Rhombus", result);
-            } else alert("Please enter a valid positive number!");
-        }
-        if (btnIdName === "pentagon-btn") {
-            const p = getInputValueByID("pentagon-p");
-            const b = getInputValueByID("pentagon-b");
-            if (p && b) {
-                const result = areaOfGeometry(p, b, "pentagon");
-                setAreaResult("Pentagon", result);
-            } else alert("Please enter a valid positive number!");
-        }
-        if (btnIdName === "ellipse-btn") {
-            const a = getInputValueByID("ellipse-a");
-            const b = getInputValueByID("ellipse-b");
-            if (a && b) {
-                const result = areaOfGeometry(a, b, "ellipse");
-                setAreaResult("Ellipse", result);
-            } else alert("Please enter a valid positive number!");
-        }
-    });
-}
+    } else alert("Please enter a valid positive number!");
+};
+
+const showResult = (inputId1, inputId2, areaName) => {
+    const a = getInputValueByID(inputId1);
+    const b = getInputValueByID(inputId2);
+    areaOfGeometry(a, b, areaName);
+};
+
+// geometry cards container
+const cardsContainer = document.getElementById("geometry-cards-container");
+// add event listener to cards container for buttons click using delegation
+cardsContainer.addEventListener("click", (event) => {
+    const btnIdName = event.target.id;
+    if (btnIdName === "triangle-btn") {
+        showResult("triangle-base", "triangle-height", "Triangle");
+    }
+    if (btnIdName === "rectangle-btn") {
+        showResult("rectangle-width", "rectangle-length", "Rectangle");
+    }
+    if (btnIdName === "parallelogram-btn") {
+        showResult(
+            "parallelogram-base",
+            "parallelogram-height",
+            "Parallelogram"
+        );
+    }
+    if (btnIdName === "rhombus-btn") {
+        showResult("rhombus-d1", "rhombus-d2", "Rhombus");
+    }
+    if (btnIdName === "pentagon-btn") {
+        showResult("pentagon-p", "pentagon-b", "Pentagon");
+    }
+    if (btnIdName === "ellipse-btn") {
+        showResult("ellipse-a", "ellipse-b", "Ellipse");
+    }
+});
