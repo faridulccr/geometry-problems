@@ -24,11 +24,8 @@ for (let card of geometryCards) {
 }
 
 // area calculation related task
-const getElementById = (idName) => {
-    return document.getElementById(idName);
-};
-
-const getNumberValue = (element) => {
+const getInputValueByID = (idName) => {
+    const element = document.getElementById(idName);
     const number = parseFloat(element.value);
 
     if (isNaN(number) || number <= 0) {
@@ -64,9 +61,9 @@ const areaOfGeometry = (a, b, areaName) => {
 
 // set area result in result container
 const setAreaResult = (function () {
+    const resultContainer = document.getElementById("result-container");
     let html = "";
     return (areaName, result) => {
-        const resultContainer = getElementById("result-container");
         html += `<li class="text-xl my-2">
                         <span class="text-2xl mr-12">${areaName}</span
                         >
@@ -84,50 +81,48 @@ for (let button of areaButtons) {
     button.addEventListener("click", (event) => {
         const btnIdName = event.target.id;
         if (btnIdName === "triangle-btn") {
-            const base = getNumberValue(getElementById("triangle-base"));
-            const height = getNumberValue(getElementById("triangle-height"));
+            const base = getInputValueByID("triangle-base");
+            const height = getInputValueByID("triangle-height");
             if (base && height) {
                 const result = areaOfGeometry(base, height, "triangle");
                 setAreaResult("Triangle", result);
             } else alert("Please enter a valid positive number!");
         }
         if (btnIdName === "rectangle-btn") {
-            const width = getNumberValue(getElementById("rectangle-width"));
-            const length = getNumberValue(getElementById("rectangle-length"));
+            const width = getInputValueByID("rectangle-width");
+            const length = getInputValueByID("rectangle-length");
             if (width && length) {
                 const result = areaOfGeometry(width, length, "rectangle");
                 setAreaResult("Rectangle", result);
             } else alert("Please enter a valid positive number!");
         }
         if (btnIdName === "parallelogram-btn") {
-            const base = getNumberValue(getElementById("parallelogram-base"));
-            const height = getNumberValue(
-                getElementById("parallelogram-height")
-            );
+            const base = getInputValueByID("parallelogram-base");
+            const height = getInputValueByID("parallelogram-height");
             if (base && height) {
                 const result = areaOfGeometry(base, height, "parallelogram");
                 setAreaResult("Parallelogram", result);
             } else alert("Please enter a valid positive number!");
         }
         if (btnIdName === "rhombus-btn") {
-            const d1 = getNumberValue(getElementById("rhombus-d1"));
-            const d2 = getNumberValue(getElementById("rhombus-d2"));
+            const d1 = getInputValueByID("rhombus-d1");
+            const d2 = getInputValueByID("rhombus-d2");
             if (d1 && d2) {
                 const result = areaOfGeometry(d1, d2, "rhombus");
                 setAreaResult("Rhombus", result);
             } else alert("Please enter a valid positive number!");
         }
         if (btnIdName === "pentagon-btn") {
-            const p = getNumberValue(getElementById("pentagon-p"));
-            const b = getNumberValue(getElementById("pentagon-b"));
+            const p = getInputValueByID("pentagon-p");
+            const b = getInputValueByID("pentagon-b");
             if (p && b) {
                 const result = areaOfGeometry(p, b, "pentagon");
                 setAreaResult("Pentagon", result);
             } else alert("Please enter a valid positive number!");
         }
         if (btnIdName === "ellipse-btn") {
-            const a = getNumberValue(getElementById("ellipse-a"));
-            const b = getNumberValue(getElementById("ellipse-b"));
+            const a = getInputValueByID("ellipse-a");
+            const b = getInputValueByID("ellipse-b");
             if (a && b) {
                 const result = areaOfGeometry(a, b, "ellipse");
                 setAreaResult("Ellipse", result);
