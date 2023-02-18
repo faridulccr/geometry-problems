@@ -34,19 +34,24 @@ const getInputValueByID = (idName) => {
 };
 
 // set area result in result container
-const setAreaResult = (function () {
-    const resultContainer = document.getElementById("result-container");
-    let html = "";
-    return (areaName, result) => {
-        html += `<li class="text-xl my-2">
-                        <span class="text-2xl mr-12">${areaName}</span
+const resultContainer = document.getElementById("result-container");
+// to add and remove list item 
+let listItems = [];
+const setAreaResult = (areaName, result) => {
+    const list = `<li class="text-xl my-2">
+                        <span class="text-2xl mr-8">${areaName}</span
                         >
                         <span>${result}</span>
                         <span>cm<sup>2</sup></span>
+                        <span class="close-btn px-2 text-white bg-red-600 rounded-full inline-block ml-1">X</span>
                     </li>`;
-        resultContainer.innerHTML = html;
-    };
-})();
+    listItems.push(list);
+    let html = "";
+    for (let li of listItems) {
+        html += li;
+    }
+    resultContainer.innerHTML = html;
+};
 
 // to calculate area of geometry area
 const areaOfGeometry = (a, b, areaName) => {
@@ -106,4 +111,12 @@ cardsContainer.addEventListener("click", (event) => {
     if (btnIdName === "ellipse-btn") {
         showResult("ellipse-a", "ellipse-b", "Ellipse");
     }
+});
+
+// add event listener to result container to delete result
+resultContainer.addEventListener("click", (event) => {
+    const listItem = event.target.parentNode;
+    resultContainer.removeChild(listItem);
+    const indexPosition = listItems.indexOf(listItem);
+    listItems.splice(indexPosition, 1);
 });
