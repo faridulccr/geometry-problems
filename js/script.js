@@ -1,18 +1,11 @@
-const geometryCards = document.getElementsByClassName("geometry-card");
-
 // when mouseover a geometry card it will change background color randomly
 // add event listener to all geometry card to listen mouse enter event
+const geometryCards = document.getElementsByClassName("geometry-card");
 for (let card of geometryCards) {
     card.addEventListener("mouseenter", () => {
         const randomColor = Math.floor(Math.random() * 16777215).toString(16);
         card.style.transition = "0.3s";
-
-        if (randomColor === "000000") {
-            card.style.backgroundColor = `#${randomColor}`;
-            card.style.color = "#ffffff";
-        } else {
-            card.style.backgroundColor = `#${randomColor}`;
-        }
+        card.style.backgroundColor = `#${randomColor}`;
     });
 }
 
@@ -23,7 +16,7 @@ for (let card of geometryCards) {
 //     });
 // }
 
-// area calculation related task
+// area calculation and set result to result container related task
 const getInputValueByID = (idName) => {
     const element = document.getElementById(idName);
     const number = parseFloat(element.value);
@@ -33,58 +26,50 @@ const getInputValueByID = (idName) => {
     return number;
 };
 
+// to calculate area of geometry area
+const areaOfGeometry = (a, b, areaName) => {
+    // to calculate area for Triangle, Rhombus and Pentagon (A = 0.5 * b * h)
+    if (
+        areaName === "Triangle" ||
+        areaName === "Rhombus" ||
+        areaName === "Pentagon"
+    ) {
+        return ((a * b) / 2).toFixed(1);
+    }
+    //to calculate area for Rectangle and Parallelogram and Square (A = b * h)
+    if (areaName === "Rectangle" || areaName === "Parallelogram") {
+        return (a * b).toFixed(1);
+    }
+    //to calculate area for Ellipse (A = πab)
+    if (areaName === "Ellipse") {
+        return (Math.PI * a * b).toFixed(1);
+    }
+};
+
 // set area result in result container
 const resultContainer = document.getElementById("result-container");
 // to add and remove list item
-let listItems = [];
-const setAreaResult = (areaName, result) => {
+const setAreaResult = (areaName, area) => {
     const list = `<li class="text-xl my-2">
                         <span class="text-2xl mr-8">${areaName}</span
                         >
-                        <span>${result}</span>
+                        <span>${area}</span>
                         <span>cm<sup>2</sup></span>
                         <button class="convert-btn bg-blue-600 px-3 py-1 rounded mx-2 text-white mt-1" name="convert-meter">
                             convert to m<sup>2</sup>
                         </button>
                         <button class="close-btn px-2 text-white bg-red-600 rounded-full ml-1">X</button>
                     </li>`;
-    listItems.push(list);
-    let html = "";
-    for (let li of listItems) {
-        html += li;
-    }
-    resultContainer.innerHTML = html;
-};
-
-// to calculate area of geometry area
-const areaOfGeometry = (a, b, areaName) => {
-    if (a && b) {
-        // to calculate area for Triangle, Rhombus and Pentagon (A = 0.5 * b * h)
-        if (
-            areaName === "Triangle" ||
-            areaName === "Rhombus" ||
-            areaName === "Pentagon"
-        ) {
-            const result = ((a * b) / 2).toFixed(1);
-            setAreaResult(areaName, result);
-        }
-        //to calculate area for Rectangle and Parallelogram and Square (A = b * h)
-        if (areaName === "Rectangle" || areaName === "Parallelogram") {
-            const result = (a * b).toFixed(1);
-            setAreaResult(areaName, result);
-        }
-        //to calculate area for Ellipse (A = πab)
-        if (areaName === "Ellipse") {
-            const result = (Math.PI * a * b).toFixed(1);
-            setAreaResult(areaName, result);
-        }
-    } else alert("Please enter a valid positive number!");
+    resultContainer.innerHTML += list;
 };
 
 const showResult = (inputId1, inputId2, areaName) => {
     const a = getInputValueByID(inputId1);
     const b = getInputValueByID(inputId2);
-    areaOfGeometry(a, b, areaName);
+    if (a && b) {
+        const area = areaOfGeometry(a, b, areaName);
+        setAreaResult(areaName, area);
+    } else alert("Please enter a valid positive number!");
 };
 
 // geometry cards container
@@ -119,24 +104,22 @@ cardsContainer.addEventListener("click", (event) => {
 // add event listener to result container to delete result
 resultContainer.addEventListener("click", (event) => {
     const btn = event.target;
-    const indexPositionOfList = listItems.indexOf(btn.parentNode);
 
     // remove item from listItems when close btn click
-    if (btn.classList[0] === "close-btn") {
-        resultContainer.removeChild(btn.parentNode);
-        listItems.splice(indexPositionOfList, 1);
+    if (btn.classList.contains("close-btn")) {
+        resultContainer.removeChild(btn.parentElement);
     }
     // convert units when convert btn click
-    if (btn.classList[0] === "convert-btn") {
+    if (btn.classList.contains("convert-btn")) {
         const cm = btn.previousElementSibling;
-        const result = cm.previousElementSibling;
+        const area = cm.previousElementSibling;
         if (btn.name === "convert-meter") {
-            result.textContent = `${convert_cm_to_m(result.textContent)}`;
+            area.textContent = `${convert_cm_to_m(area.textContent)}`;
             cm.innerHTML = `m<sup>2</sup>`;
             btn.innerHTML = `convert to cm<sup>2</sup>`;
             btn.name = "convert-cm";
         } else {
-            result.textContent = `${convert_m_to_cm(result.textContent)}`;
+            area.textContent = `${convert_m_to_cm(area.textContent)}`;
             cm.innerHTML = `cm<sup>2</sup>`;
             btn.innerHTML = `convert to m<sup>2</sup>`;
             btn.name = "convert-meter";
