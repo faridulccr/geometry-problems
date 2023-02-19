@@ -25,7 +25,6 @@ const getInputValueByID = (idName) => {
     }
     return number;
 };
-
 // to calculate area of geometry area
 const areaOfGeometry = (a, b, areaName) => {
     // to calculate area for Triangle, Rhombus and Pentagon (A = 0.5 * b * h)
@@ -45,11 +44,9 @@ const areaOfGeometry = (a, b, areaName) => {
         return (Math.PI * a * b).toFixed(1);
     }
 };
-
-// set area result in result container
-const resultContainer = document.getElementById("result-container");
 // to add and remove list item
 const setAreaResult = (areaName, area) => {
+    const resultContainer = document.getElementById("result-container");
     const list = `<li class="text-xl my-2">
                         <span class="text-2xl mr-8">${areaName}</span
                         >
@@ -62,19 +59,16 @@ const setAreaResult = (areaName, area) => {
                     </li>`;
     resultContainer.innerHTML += list;
 };
-
 const showResult = (inputId1, inputId2, areaName) => {
     const a = getInputValueByID(inputId1);
     const b = getInputValueByID(inputId2);
     if (a && b) {
         const area = areaOfGeometry(a, b, areaName);
         setAreaResult(areaName, area);
-    } else alert("Please enter a valid positive number!");
+    } else alert(`Please enter a valid positive number in ${areaName} area!`);
 };
-
-// geometry cards container
-const cardsContainer = document.getElementById("geometry-cards-container");
 // add event listener to cards container for buttons click using delegation
+const cardsContainer = document.getElementById("geometry-cards-container");
 cardsContainer.addEventListener("click", (event) => {
     const btnIdName = event.target.id;
     if (btnIdName === "triangle-btn") {
@@ -101,13 +95,22 @@ cardsContainer.addEventListener("click", (event) => {
     }
 });
 
-// add event listener to result container to delete result
-resultContainer.addEventListener("click", (event) => {
+// convert units and element delete related task
+// to convert cm square to m square
+const convert_cm_to_m = (cm) => {
+    return parseFloat(cm) / 10000;
+};
+// to convert m square to cm square
+const convert_m_to_cm = (m) => {
+    return (parseFloat(m) * 10000).toFixed(1);
+};
+// add event listener to output container to delete result
+const outputContainer = document.getElementById("result-container");
+outputContainer.addEventListener("click", (event) => {
     const btn = event.target;
-
     // remove item from listItems when close btn click
     if (btn.classList.contains("close-btn")) {
-        resultContainer.removeChild(btn.parentElement);
+        outputContainer.removeChild(btn.parentElement);
     }
     // convert units when convert btn click
     if (btn.classList.contains("convert-btn")) {
@@ -126,12 +129,3 @@ resultContainer.addEventListener("click", (event) => {
         }
     }
 });
-
-// to cm square to m square
-function convert_cm_to_m(cm) {
-    return parseFloat(cm) / 10000;
-}
-// to m square to cm square
-function convert_m_to_cm(m) {
-    return (parseFloat(m) * 10000).toFixed(1);
-}
