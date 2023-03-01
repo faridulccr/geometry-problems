@@ -33,15 +33,15 @@ const areaOfGeometry = (a, b, areaName) => {
         areaName === "Rhombus" ||
         areaName === "Pentagon"
     ) {
-        return ((a * b) / 2).toFixed(1);
+        return ((a * b) / 2).toFixed(2);
     }
     //to calculate area for Rectangle and Parallelogram and Square (A = b * h)
     if (areaName === "Rectangle" || areaName === "Parallelogram") {
-        return (a * b).toFixed(1);
+        return (a * b).toFixed(2);
     }
     //to calculate area for Ellipse (A = πab)
     if (areaName === "Ellipse") {
-        return (Math.PI * a * b).toFixed(1);
+        return (Math.PI * a * b).toFixed(2);
     }
 };
 // to add and remove list item
@@ -102,7 +102,7 @@ const convert_cm_to_m = (cm) => {
 };
 // to convert m square to cm square
 const convert_m_to_cm = (m) => {
-    return (parseFloat(m) * 10000).toFixed(1);
+    return (parseFloat(m) * 10000).toFixed(2);
 };
 // add event listener to output container to delete result
 const outputContainer = document.getElementById("result-container");
